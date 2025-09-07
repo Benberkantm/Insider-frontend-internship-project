@@ -19,6 +19,7 @@
           <div class="flex">
             <input
               v-model="searchQuery"
+              @input="onInput"
               @keyup.enter="handleSearch"
               type="text"
               :placeholder="placeholder"
@@ -38,6 +39,68 @@
               </svg>
             </button>
           </div>
+          <div
+            v-if="showSuggestions"
+            class="absolute left-0 right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 text-left max-h-80 overflow-auto"
+            role="listbox"
+          >
+            <ul class="divide-y divide-gray-200">
+              <li v-if="isLoading" class="px-4 py-3 text-gray-500">Loading…</li>
+              <li
+                v-for="item in suggestions"
+                :key="`${item.media_type}-${item.id}`"
+                class="px-4 py-3 hover:bg-gray-100 cursor-pointer flex items-center gap-3"
+                @click="handleSelect(item)"
+                role="option"
+              >
+                <span class="shrink-0">
+                  <svg
+                    v-if="item.media_type === 'movie'"
+                    class="w-4 h-4 text-red-600"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M4 4h3l2 3h5a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zm11-2a1 1 0 011 1v3h-2V3a1 1 0 011-1zm-4 0a1 1 0 011 1v3H9V3a1 1 0 011-1z"
+                    />
+                  </svg>
+                  <svg
+                    v-else-if="item.media_type === 'tv'"
+                    class="w-4 h-4 text-blue-600"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M3 5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2H3zm4 8H4v-4h3v4zm9-4h-8v4h8v-4z"
+                    />
+                  </svg>
+                  <svg v-else class="w-4 h-4 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 2a4 4 0 00-4 4 4 4 0 008 0 4 4 0 00-4-4zM2 16a6 6 0 1116 0v1H2v-1z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <div class="min-w-0">
+                  <div class="text-gray-900 truncate">{{ item.title || item.name }}</div>
+                  <div class="text-xs text-gray-500">
+                    in
+                    {{
+                      item.media_type === 'movie'
+                        ? 'Movies'
+                        : item.media_type === 'tv'
+                          ? 'TV Shows'
+                          : 'People'
+                    }}
+                  </div>
+                </div>
+              </li>
+              <li v-if="!isLoading && suggestions.length === 0" class="px-4 py-3 text-gray-500">
+                No results
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +109,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import tmdbService from '../services/tmdb.js'
 
 const props = defineProps({
   title: {
@@ -65,16 +129,77 @@ const props = defineProps({
     default:
       'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
   },
+  restrictType: {
+    type: String,
+    default: null,
+    validator: (v) => v === null || v === 'movie' || v === 'tv',
+  },
 })
 
 const emit = defineEmits(['search'])
 
 const searchQuery = ref('')
+const suggestions = ref([])
+const showSuggestions = ref(false)
+const isLoading = ref(false)
+let debounceTimer = null
+let abortController = null
+
+const fetchSuggestions = async (query) => {
+  try {
+    if (abortController) {
+      abortController.abort()
+    }
+    abortController = new AbortController()
+    isLoading.value = true
+    const response = await tmdbService.searchMulti(query, 1, { signal: abortController.signal })
+    let items = response?.results || []
+    items = items.filter((r) => r.media_type === 'movie' || r.media_type === 'tv')
+    if (props.restrictType) {
+      items = items.filter((r) => r.media_type === props.restrictType)
+    }
+    suggestions.value = items.slice(0, 10)
+    showSuggestions.value = true
+  } catch {
+    suggestions.value = []
+    showSuggestions.value = true
+  }
+  isLoading.value = false
+}
+
+const onInput = () => {
+  showSuggestions.value = true
+  suggestions.value = []
+  isLoading.value = false
+  if (debounceTimer) {
+    clearTimeout(debounceTimer)
+  }
+  const value = searchQuery.value.trim()
+  if (value.length >= 3) {
+    debounceTimer = setTimeout(() => {
+      fetchSuggestions(value)
+    }, 500)
+  } else {
+    showSuggestions.value = false
+  }
+}
 
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
     emit('search', searchQuery.value.trim())
+    showSuggestions.value = false
+    suggestions.value = []
   }
+}
+
+const handleSelect = (item) => {
+  const text = item.title || item.name || ''
+  if (text) {
+    searchQuery.value = text
+    emit('search', { query: text, mediaType: item.media_type })
+  }
+  showSuggestions.value = false
+  suggestions.value = []
 }
 </script>
 

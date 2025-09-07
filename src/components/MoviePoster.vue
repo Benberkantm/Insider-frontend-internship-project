@@ -8,6 +8,7 @@
         v-if="posterPath"
         :src="posterUrl"
         :alt="title"
+        loading="lazy"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         @error="handleImageError"
       />
@@ -29,6 +30,32 @@
           </svg>
         </div>
       </div>
+
+      <button
+        class="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-black/80 transition-colors"
+        @click.stop="toggle"
+        :aria-label="isFaved ? 'Remove from favorites' : 'Add to favorites'"
+      >
+        <svg v-if="isFaved" class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.166L12 18.896l-7.335 3.867 1.401-8.166L.132 9.21l8.2-1.192L12 .587z"
+          />
+        </svg>
+        <svg
+          v-else
+          class="w-6 h-6 text-yellow-400"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon
+            points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.5 5.5 21 7 14 2 9.3 9 8.5 12 2"
+          ></polygon>
+        </svg>
+      </button>
     </div>
 
     <div class="p-4 flex flex-col min-h-[8rem]">
@@ -52,6 +79,7 @@
 import { computed } from 'vue'
 import tmdbService from '../services/tmdb.js'
 import RatingDisplay from './RatingDisplay.vue'
+import { useFavoritesStore } from '../stores/favorites.js'
 
 const props = defineProps({
   id: {
@@ -109,6 +137,20 @@ const handleClick = () => {
 const handleImageError = (event) => {
   event.target.style.display = 'none'
 }
+
+const favoritesStore = useFavoritesStore()
+const isFaved = computed(() => favoritesStore.isFavorite(props.id, props.type))
+const toggle = () => {
+  favoritesStore.toggleFavorite({
+    id: props.id,
+    type: props.type,
+    title: props.title,
+    posterPath: props.posterPath,
+    releaseDate: props.releaseDate,
+    rating: props.rating,
+    voteCount: props.voteCount,
+  })
+}
 </script>
 
 <style scoped>
@@ -116,6 +158,7 @@ const handleImageError = (event) => {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;

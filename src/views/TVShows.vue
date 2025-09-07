@@ -4,6 +4,7 @@
       title="Discover TV Shows"
       subtitle="Find your next binge-worthy series"
       placeholder="Search for TV shows..."
+      restrict-type="tv"
       @search="handleSearch"
     />
 
@@ -16,13 +17,12 @@
         v-for="show in tvShows"
         :key="show.id"
         :id="show.id"
-        :title="show.name"
+        :title="show.name || show.title"
         :poster-path="show.poster_path"
-        :release-date="show.first_air_date"
+        :release-date="show.first_air_date || show.release_date"
         :rating="show.vote_average"
         :vote-count="show.vote_count"
-        type="tv"
-        @click="handleTVShowClick"
+        :type="show.media_type || 'tv'"
       />
     </div>
 
@@ -53,7 +53,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import tmdbService from '../services/tmdb.js'
 import SearchInput from '../components/SearchInput.vue'
 import PaginationTabs from '../components/PaginationTabs.vue'
@@ -82,10 +83,11 @@ const fetchTVShows = async (page = 1, tab = 'popular') => {
       }
     }
 
+    const results = response.results || []
     if (page === 1) {
-      tvShows.value = response.results
+      tvShows.value = results
     } else {
-      tvShows.value.push(...response.results)
+      tvShows.value.push(...results)
     }
 
     currentPage.value = response.page
@@ -106,7 +108,8 @@ const handleTabChange = (tab) => {
   fetchTVShows(1, tab)
 }
 
-const handleSearch = (query) => {
+const handleSearch = (payload) => {
+  const query = typeof payload === 'object' && payload !== null ? payload.query || '' : payload
   searchQuery.value = query
   isSearching.value = true
   currentPage.value = 1
@@ -119,8 +122,26 @@ const loadMore = () => {
   }
 }
 
-const handleTVShowClick = () => {}
 onMounted(() => {
-  fetchTVShows(1, 'popular')
+  const route = useRoute()
+  const initial = (route.query?.search || '').toString().trim()
+  if (initial.length >= 1) {
+    searchQuery.value = initial
+    isSearching.value = true
+    fetchTVShows(1, currentTab.value)
+  } else {
+    fetchTVShows(1, 'popular')
+  }
 })
+
+const route = useRoute()
+watch(
+  () => route.query.search,
+  (val) => {
+    const q = (val || '').toString().trim()
+    if (q) {
+      handleSearch(q)
+    }
+  },
+)
 </script>

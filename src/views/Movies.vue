@@ -4,6 +4,7 @@
       title="Discover Movies"
       subtitle="Find your next favorite movie"
       placeholder="Search for movies..."
+      restrict-type="movie"
       @search="handleSearch"
     />
 
@@ -16,13 +17,12 @@
         v-for="movie in movies"
         :key="movie.id"
         :id="movie.id"
-        :title="movie.title"
+        :title="movie.title || movie.name"
         :poster-path="movie.poster_path"
-        :release-date="movie.release_date"
+        :release-date="movie.release_date || movie.first_air_date"
         :rating="movie.vote_average"
         :vote-count="movie.vote_count"
-        type="movie"
-        @click="handleMovieClick"
+        :type="movie.media_type || 'movie'"
       />
     </div>
 
@@ -53,7 +53,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import tmdbService from '../services/tmdb.js'
 import SearchInput from '../components/SearchInput.vue'
 import PaginationTabs from '../components/PaginationTabs.vue'
@@ -86,10 +87,11 @@ const fetchMovies = async (page = 1, tab = 'popular') => {
       }
     }
 
+    const results = response.results || []
     if (page === 1) {
-      movies.value = response.results
+      movies.value = results
     } else {
-      movies.value.push(...response.results)
+      movies.value.push(...results)
     }
 
     currentPage.value = response.page
@@ -110,7 +112,8 @@ const handleTabChange = (tab) => {
   fetchMovies(1, tab)
 }
 
-const handleSearch = (query) => {
+const handleSearch = (payload) => {
+  const query = typeof payload === 'object' && payload !== null ? payload.query || '' : payload
   searchQuery.value = query
   isSearching.value = true
   currentPage.value = 1
@@ -123,10 +126,26 @@ const loadMore = () => {
   }
 }
 
-const handleMovieClick = () => {
-
-}
 onMounted(() => {
-  fetchMovies(1, 'popular')
+  const route = useRoute()
+  const initial = (route.query?.search || '').toString().trim()
+  if (initial.length >= 1) {
+    searchQuery.value = initial
+    isSearching.value = true
+    fetchMovies(1, currentTab.value)
+  } else {
+    fetchMovies(1, 'popular')
+  }
 })
+
+const route = useRoute()
+watch(
+  () => route.query.search,
+  (val) => {
+    const q = (val || '').toString().trim()
+    if (q) {
+      handleSearch(q)
+    }
+  },
+)
 </script>

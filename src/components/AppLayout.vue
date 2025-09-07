@@ -26,6 +26,13 @@
             >
               Diziler
             </router-link>
+            <router-link
+              to="/favorites"
+              class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              :class="{ 'text-white bg-gray-700': $route.path === '/favorites' }"
+            >
+              Favoriler
+            </router-link>
           </div>
         </div>
       </div>

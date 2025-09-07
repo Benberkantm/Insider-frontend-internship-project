@@ -54,11 +54,11 @@ import MoviePoster from './MoviePoster.vue'
 const props = defineProps({
   type: {
     type: String,
-    default: 'all', // 'all' | 'movie' | 'tv'
+    default: 'all',
   },
   initialWindow: {
     type: String,
-    default: 'day', // 'day' | 'week'
+    default: 'day',
   },
 })
 

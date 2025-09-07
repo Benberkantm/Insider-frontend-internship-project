@@ -9,7 +9,7 @@ class TMDBService {
     this.imageBaseUrl = IMAGE_BASE_URL
   }
 
-  async makeRequest(endpoint, params = {}) {
+  async makeRequest(endpoint, params = {}, options = {}) {
     const url = new URL(`${this.baseUrl}${endpoint}`)
     url.searchParams.append('api_key', this.apiKey)
 
@@ -20,7 +20,7 @@ class TMDBService {
     })
 
     try {
-      const response = await fetch(url)
+      const response = await fetch(url, options)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -39,8 +39,12 @@ class TMDBService {
     return this.makeRequest('/movie/top_rated', { page })
   }
 
-  async searchMovies(query, page = 1) {
-    return this.makeRequest('/search/movie', { query, page })
+  async searchMovies(query, page = 1, options = {}) {
+    return this.makeRequest('/search/movie', { query, page }, options)
+  }
+
+  async searchMulti(query, page = 1, options = {}) {
+    return this.makeRequest('/search/multi', { query, page }, options)
   }
 
   async getMovieDetails(movieId) {
@@ -59,8 +63,8 @@ class TMDBService {
     return this.makeRequest(`/trending/${type}/${timeWindow}`, { page })
   }
 
-  async searchTVShows(query, page = 1) {
-    return this.makeRequest('/search/tv', { query, page })
+  async searchTVShows(query, page = 1, options = {}) {
+    return this.makeRequest('/search/tv', { query, page }, options)
   }
 
   async getTVShowDetails(tvId) {

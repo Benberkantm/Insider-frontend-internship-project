@@ -3,6 +3,8 @@ import AppLayout from '../components/AppLayout.vue'
 import Home from '../views/Home.vue'
 import Movies from '../views/Movies.vue'
 import TVShows from '../views/TVShows.vue'
+import SearchResults from '../views/SearchResults.vue'
+import Favorites from '../views/Favorites.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +27,16 @@ const router = createRouter({
           path: 'tv-shows',
           name: 'TVShows',
           component: TVShows,
+        },
+        {
+          path: 'search',
+          name: 'SearchResults',
+          component: SearchResults,
+        },
+        {
+          path: 'favorites',
+          name: 'Favorites',
+          component: Favorites,
         },
       ],
     },

@@ -119,9 +119,7 @@ const loadMore = () => {
   }
 }
 
-const handleTVShowClick = (show) => {
-  // Handle TV show click
-}
+const handleTVShowClick = () => {}
 onMounted(() => {
   fetchTVShows(1, 'popular')
 })

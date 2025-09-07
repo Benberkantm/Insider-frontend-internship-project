@@ -59,6 +59,10 @@ import SearchInput from '../components/SearchInput.vue'
 import PaginationTabs from '../components/PaginationTabs.vue'
 import MoviePoster from '../components/MoviePoster.vue'
 
+defineOptions({
+  name: 'MoviesView',
+})
+
 const movies = ref([])
 const loading = ref(false)
 const currentPage = ref(1)
@@ -119,8 +123,8 @@ const loadMore = () => {
   }
 }
 
-const handleMovieClick = (movie) => {
-  // Handle movie click
+const handleMovieClick = () => {
+
 }
 onMounted(() => {
   fetchMovies(1, 'popular')

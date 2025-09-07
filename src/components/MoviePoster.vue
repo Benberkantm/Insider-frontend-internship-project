@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="p-4 flex flex-col h-32">
+    <div class="p-4 flex flex-col min-h-[8rem]">
       <h3
         class="text-white font-semibold mb-1 line-clamp-2 group-hover:text-red-400 transition-colors duration-200 flex-shrink-0"
       >
@@ -122,7 +122,6 @@ const handleImageError = (event) => {
   hyphens: auto;
 }
 
-/* Ensure consistent card heights */
 .group {
   height: 100%;
   display: flex;

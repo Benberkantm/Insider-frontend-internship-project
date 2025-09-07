@@ -78,6 +78,4 @@ const handleSearch = () => {
 }
 </script>
 
-<style scoped>
-/* Custom styles for search component */
-</style>
+<style scoped></style>

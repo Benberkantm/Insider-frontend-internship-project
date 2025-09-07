@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '../components/Layout.vue'
+import AppLayout from '../components/AppLayout.vue'
 import Home from '../views/Home.vue'
 import Movies from '../views/Movies.vue'
 import TVShows from '../views/TVShows.vue'
@@ -9,25 +9,25 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: Layout,
+      component: AppLayout,
       children: [
         {
           path: '',
           name: 'Home',
-          component: Home
+          component: Home,
         },
         {
           path: 'movies',
           name: 'Movies',
-          component: Movies
+          component: Movies,
         },
         {
           path: 'tv-shows',
           name: 'TVShows',
-          component: TVShows
-        }
-      ]
-    }
+          component: TVShows,
+        },
+      ],
+    },
   ],
 })
 

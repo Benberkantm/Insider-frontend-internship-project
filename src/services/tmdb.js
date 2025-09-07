@@ -55,6 +55,10 @@ class TMDBService {
     return this.makeRequest('/tv/top_rated', { page })
   }
 
+  async getTrending(type = 'all', timeWindow = 'day', page = 1) {
+    return this.makeRequest(`/trending/${type}/${timeWindow}`, { page })
+  }
+
   async searchTVShows(query, page = 1) {
     return this.makeRequest('/search/tv', { query, page })
   }

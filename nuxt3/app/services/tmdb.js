@@ -75,6 +75,56 @@ class TMDBService {
     return this.makeRequest(`/trending/${type}/${timeWindow}`, { page })
   }
 
+  async discoverMovies(options = {}) {
+    const { sortKey = 'rating_desc', minYear, maxYear, minVotes, page = 1 } = options
+
+    const sortMap = {
+      rating_desc: 'vote_average.desc',
+      rating_asc: 'vote_average.asc',
+      votes_desc: 'vote_count.desc',
+      votes_asc: 'vote_count.asc',
+      date_desc: 'primary_release_date.desc',
+      date_asc: 'primary_release_date.asc',
+      title_asc: 'original_title.asc',
+    }
+
+    const params = {
+      sort_by: sortMap[sortKey] || sortMap.rating_desc,
+      include_adult: false,
+      page,
+    }
+    if (minYear) params['primary_release_date.gte'] = `${minYear}-01-01`
+    if (maxYear) params['primary_release_date.lte'] = `${maxYear}-12-31`
+    if (minVotes) params['vote_count.gte'] = minVotes
+
+    return this.makeRequest('/discover/movie', params)
+  }
+
+  async discoverTV(options = {}) {
+    const { sortKey = 'rating_desc', minYear, maxYear, minVotes, page = 1 } = options
+
+    const sortMap = {
+      rating_desc: 'vote_average.desc',
+      rating_asc: 'vote_average.asc',
+      votes_desc: 'vote_count.desc',
+      votes_asc: 'vote_count.asc',
+      date_desc: 'first_air_date.desc',
+      date_asc: 'first_air_date.asc',
+      title_asc: 'name.asc',
+    }
+
+    const params = {
+      sort_by: sortMap[sortKey] || sortMap.rating_desc,
+      include_adult: false,
+      page,
+    }
+    if (minYear) params['first_air_date.gte'] = `${minYear}-01-01`
+    if (maxYear) params['first_air_date.lte'] = `${maxYear}-12-31`
+    if (minVotes) params['vote_count.gte'] = minVotes
+
+    return this.makeRequest('/discover/tv', params)
+  }
+
   async searchTVShows(query, page = 1, options = {}) {
     return this.makeRequest('/search/tv', { query, page }, options)
   }

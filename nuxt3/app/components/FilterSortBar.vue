@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div>
         <label class="block text-sm text-gray-300 mb-1">Sırala</label>
-        <select v-model="sortKey" class="w-full bg-black/40 text-white px-3 py-2 rounded-lg">
+        <select v-model="sortKey" class="w-full bg-black/40 text-white px-3 py-2 rounded-lg pr-9">
           <option value="rating_desc">Puan ↓</option>
           <option value="rating_asc">Puan ↑</option>
           <option value="votes_desc">Oy ↓</option>

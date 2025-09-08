@@ -64,6 +64,7 @@ const page = ref(1)
 const totalPages = ref(1)
 const hasMorePages = computed(() => page.value < totalPages.value)
 const router = useRouter()
+const isDiscoverActive = ref(false)
 
 const filters = ref({
   sortKey: 'rating_desc',
@@ -95,8 +96,24 @@ const fetchPage = async (query) => {
   }
 }
 
-const applyFilters = (payload) => {
+const applyFilters = async (payload) => {
   filters.value = payload
+  page.value = 1
+  isDiscoverActive.value = true
+  loading.value = true
+  try {
+    const res = await tmdb.discoverTV({
+      sortKey: filters.value.sortKey,
+      minYear: filters.value.minYear,
+      maxYear: filters.value.maxYear,
+      minVotes: filters.value.minVotes,
+      page: page.value,
+    })
+    items.value = res.results || []
+    totalPages.value = res.total_pages || 1
+  } finally {
+    loading.value = false
+  }
 }
 
 const displayed = computed(() => {
@@ -145,10 +162,27 @@ const displayed = computed(() => {
   return list
 })
 
-const loadMore = () => {
+const loadMore = async () => {
   if (!loading.value && hasMorePages.value) {
     page.value += 1
-    fetchPage(currentQuery.value)
+    if (isDiscoverActive.value) {
+      loading.value = true
+      try {
+        const res = await tmdb.discoverTV({
+          sortKey: filters.value.sortKey,
+          minYear: filters.value.minYear,
+          maxYear: filters.value.maxYear,
+          minVotes: filters.value.minVotes,
+          page: page.value,
+        })
+        items.value.push(...(res.results || []))
+        totalPages.value = res.total_pages || totalPages.value
+      } finally {
+        loading.value = false
+      }
+    } else {
+      fetchPage(currentQuery.value)
+    }
   }
 }
 

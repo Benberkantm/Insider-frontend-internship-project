@@ -55,6 +55,10 @@ class TMDBService {
     return this.makeRequest(`/movie/${movieId}`)
   }
 
+  async getMovieCredits(movieId) {
+    return this.makeRequest(`/movie/${movieId}/credits`)
+  }
+
   async getPopularTVShows(page = 1) {
     return this.makeRequest('/tv/popular', { page })
   }
@@ -77,6 +81,10 @@ class TMDBService {
 
   async getTVShowDetails(tvId) {
     return this.makeRequest(`/tv/${tvId}`)
+  }
+
+  async getTVShowCredits(tvId) {
+    return this.makeRequest(`/tv/${tvId}/credits`)
   }
 
   getImageUrl(path, size = 'w500') {

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex items-center justify-between gap-1 min-w-0 h-6 leading-none">
+  <div class="w-full flex items-center gap-1 min-w-0 h-6 leading-none">
     <div class="flex items-center flex-none">
       <div class="flex items-center gap-0.5 flex-none">
         <svg
@@ -16,16 +16,14 @@
         </svg>
       </div>
       <span
-        class="text-gray-300 text-xs sm:text-sm ml-1 font-semibold whitespace-nowrap tabular-nums leading-none w-9 text-center flex-none"
+        class="text-gray-300 text-xs sm:text-sm ml-1 font-semibold whitespace-nowrap tabular-nums leading-none flex-none"
       >
         {{ formattedRating }}
       </span>
+      <span class="text-gray-400 text-xs sm:text-sm whitespace-nowrap ml-2 flex-none">
+        ({{ formatVoteCount(voteCount) }})
+      </span>
     </div>
-    <span
-      class="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap sm:ml-2 hidden sm:inline ml-auto flex-none"
-    >
-      ({{ formatVoteCount(voteCount) }})
-    </span>
   </div>
 </template>
 

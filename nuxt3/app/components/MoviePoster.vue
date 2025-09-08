@@ -131,11 +131,15 @@ const formatDate = (dateString) => {
 }
 
 const handleClick = () => {
-  emit('click', {
-    id: props.id,
-    title: props.title,
-    type: props.type,
-  })
+  if (props.type === 'movie') {
+    window.location.href = `/movies/${props.id}`
+    return
+  }
+  if (props.type === 'tv') {
+    window.location.href = `/tv/${props.id}`
+    return
+  }
+  emit('click', { id: props.id, title: props.title, type: props.type })
 }
 
 const handleImageError = (event) => {

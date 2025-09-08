@@ -58,17 +58,17 @@
                   <NuxtLink
                     to="/movies/popular"
                     class="block px-4 py-2 hover:bg-white/10 rounded-md"
-                    >Popular</NuxtLink
+                    >Popüler</NuxtLink
                   >
                   <NuxtLink
                     to="/movies/upcoming"
                     class="block px-4 py-2 hover:bg-white/10 rounded-md"
-                    >Upcoming</NuxtLink
+                    >Yakında</NuxtLink
                   >
                   <NuxtLink
                     to="/movies/top-rated"
                     class="block px-4 py-2 hover:bg-white/10 rounded-md"
-                    >Top Rated</NuxtLink
+                    >En Yüksek Puanlı</NuxtLink
                   >
                 </div>
               </div>
@@ -86,13 +86,13 @@
                   class="bg-black/80 backdrop-blur-md rounded-lg p-2 min-w-[220px] shadow-xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-opacity duration-150"
                 >
                   <NuxtLink to="/tv/popular" class="block px-4 py-2 hover:bg-white/10 rounded-md"
-                    >Popular</NuxtLink
+                    >Popüler</NuxtLink
                   >
                   <NuxtLink to="/tv/upcoming" class="block px-4 py-2 hover:bg-white/10 rounded-md"
-                    >Upcoming</NuxtLink
+                    >Yakında</NuxtLink
                   >
                   <NuxtLink to="/tv/top-rated" class="block px-4 py-2 hover:bg-white/10 rounded-md"
-                    >Top Rated</NuxtLink
+                    >En Yüksek Puanlı</NuxtLink
                   >
                 </div>
               </div>
@@ -119,15 +119,15 @@
               </button>
               <div v-show="mobileMoviesOpen" class="mt-1 space-y-1">
                 <NuxtLink to="/movies/popular" class="block px-6 py-2 rounded-md hover:bg-white/10"
-                  >Popular</NuxtLink
+                  >Popüler</NuxtLink
                 >
                 <NuxtLink to="/movies/upcoming" class="block px-6 py-2 rounded-md hover:bg-white/10"
-                  >Upcoming</NuxtLink
+                  >Yakında</NuxtLink
                 >
                 <NuxtLink
                   to="/movies/top-rated"
                   class="block px-6 py-2 rounded-md hover:bg-white/10"
-                  >Top Rated</NuxtLink
+                  >En Yüksek Puanlı</NuxtLink
                 >
               </div>
 
@@ -141,13 +141,13 @@
               </button>
               <div v-show="mobileTvOpen" class="mt-1 space-y-1">
                 <NuxtLink to="/tv/popular" class="block px-6 py-2 rounded-md hover:bg-white/10"
-                  >Popular</NuxtLink
+                  >Popüler</NuxtLink
                 >
                 <NuxtLink to="/tv/upcoming" class="block px-6 py-2 rounded-md hover:bg-white/10"
-                  >Upcoming</NuxtLink
+                  >Yakında</NuxtLink
                 >
                 <NuxtLink to="/tv/top-rated" class="block px-6 py-2 rounded-md hover:bg-white/10"
-                  >Top Rated</NuxtLink
+                  >En Yüksek Puanlı</NuxtLink
                 >
               </div>
               <NuxtLink to="/favorites" class="block mt-2 px-4 py-2 rounded-md hover:bg-white/10"
@@ -174,6 +174,7 @@
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+defineOptions({ name: 'AppDefaultLayout' })
 
 const mobileOpen = ref(false)
 const mobileMoviesOpen = ref(false)

@@ -1,6 +1,7 @@
 const API_KEY = '348088421ad3fb3a9d6e56bb6a9a8f80'
 const BASE_URL = 'https://api.themoviedb.org/3'
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p'
+const DEFAULT_LANGUAGE = 'tr-TR'
 
 class TMDBService {
   constructor() {
@@ -12,6 +13,9 @@ class TMDBService {
   async makeRequest(endpoint, params = {}, options = {}) {
     const url = new URL(`${this.baseUrl}${endpoint}`)
     url.searchParams.append('api_key', this.apiKey)
+    if (!url.searchParams.has('language')) {
+      url.searchParams.append('language', DEFAULT_LANGUAGE)
+    }
 
     Object.keys(params).forEach((key) => {
       if (params[key] !== null && params[key] !== undefined) {

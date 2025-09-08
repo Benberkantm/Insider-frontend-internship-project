@@ -79,7 +79,7 @@
                 </div>
               </li>
               <li v-if="!isLoading && suggestions.length === 0" class="px-4 py-3 text-gray-500">
-                No results
+                Sonuç bulunamadı
               </li>
             </ul>
           </div>

@@ -46,6 +46,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+defineOptions({ name: 'TvUpcomingPage' })
 import { useRouter } from 'vue-router'
 import tmdb from '~/services/tmdb'
 import MoviePoster from '~/components/MoviePoster.vue'

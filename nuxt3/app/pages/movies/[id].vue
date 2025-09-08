@@ -25,12 +25,12 @@
               class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 transition-colors"
               @click="toggleFavorite"
             >
-              {{ isFaved ? 'Remove from favorites' : 'Add to favorites' }}
+              {{ isFaved ? 'Favorilerden kaldır' : 'Favorilere ekle' }}
             </button>
           </div>
 
           <h2 class="text-xl font-semibold mb-2">Özet</h2>
-          <p class="text-gray-300 mb-6">{{ movie.overview || 'No overview available.' }}</p>
+          <p class="text-gray-300 mb-6">{{ movie.overview || 'Özet bulunamadı.' }}</p>
 
           <div v-if="cast.length" class="mb-6">
             <h2 class="text-xl font-semibold mb-3">Oyuncular</h2>
@@ -108,7 +108,7 @@ const fetchData = async (id) => {
     ])
     movie.value = details || {}
     cast.value = (credits?.cast || []).slice(0, 12)
-  } catch (e) {
+  } catch {
     error.value = true
   } finally {
     loading.value = false

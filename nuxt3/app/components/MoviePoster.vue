@@ -38,7 +38,7 @@
       <button
         class="absolute top-2 right-2 p-2 rounded-full bg-black/60 hover:bg-black/80 transition-colors"
         @click.stop="toggle"
-        :aria-label="isFaved ? 'Remove from favorites' : 'Add to favorites'"
+        :aria-label="isFaved ? 'Favorilerden kaldır' : 'Favorilere ekle'"
       >
         <svg v-if="isFaved" class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
           <path

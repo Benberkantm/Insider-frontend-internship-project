@@ -1,36 +1,43 @@
 # Insider Frontend Internship Project
 
-A modern Vue.js movie and TV show discovery application built with TMDB API integration.
+A modern Nuxt 3 movie and TV show discovery application with TMDB API integration.
 
 ## Features
 
-- 🎬 **Movie Discovery** - Browse popular and top-rated movies
-- 📺 **TV Show Discovery** - Explore popular and top-rated TV series
-- 🔍 **Search Functionality** - Search for movies and TV shows
-- ⭐ **Rating System** - View ratings and vote counts
-- 📱 **Responsive Design** - Works on all devices
-- 🎨 **Modern UI** - Built with Tailwind CSS
+- 🎬 **Movies**: Popular, Top Rated, Upcoming
+- 📺 **TV Shows**: Popular, Top Rated (on-the-air mapped for upcoming)
+- 🔎 **Search**: Movies and TV; query-aware navigation
+- 🧮 **Filter & Sort**: Year range, min votes; sort by rating, votes, date, title
+- ⭐ **Favorites**: Local storage with quick toggle on posters
+- 📱 **Responsive UI**: Mobile hamburger menu + desktop hover popovers
+- 🎨 **Tailwind UI**: Glass effects and modern layout
 
 ## Tech Stack
 
-- **Vue.js 3** - Progressive JavaScript framework
-- **Vite** - Fast build tool
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vue Router** - Client-side routing
-- **TMDB API** - Movie and TV show data
-
-
+- **Nuxt 3** (Vue 3, Nitro)
+- **Tailwind CSS**
+- **Pinia** (state management)
+- **TMDB API**
 
 ## API Configuration
 
-The project uses TMDB API for movie and TV show data. The API key is configured in `src/services/tmdb.js`.
+The app uses TMDB API for movie and TV show data. The API key is configured in `nuxt3/app/services/tmdb.js`.
 
 ## Project Structure
 
 ```
-src/
-├── components/     # Reusable Vue components
-├── views/         # Page components
-├── services/      # API services
-└── router/        # Vue Router configuration
+nuxt3/
+├── app/
+│   ├── components/           # UI components (MoviePoster, FilterSortBar, ...)
+│   ├── layouts/              # Default layout (navbar + popovers + mobile menu)
+│   ├── pages/                # Pages (movies, tv, search, favorites, index)
+│   ├── services/             # TMDB service
+│   ├── stores/               # Pinia stores (favorites)
+│   └── assets/css/main.css   # Tailwind entry
+├── public/                   # Static assets (icons, images)
+└── nuxt.config.ts            # Nuxt configuration
 ```
+
+Notes:
+
+- Active app lives under `nuxt3/`. The legacy Vite app under `src/` is kept for reference.

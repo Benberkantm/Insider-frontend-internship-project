@@ -8,8 +8,8 @@
           @click="selectTab(tab.key)"
           class="px-3 py-1 text-sm rounded-md transition-colors duration-200"
           :class="{
-            'bg-red-600 text-white': activeTab === tab.key,
-            'text-gray-300 hover:text-white': activeTab !== tab.key,
+            'bg-red-600 text-white': props.active === tab.key,
+            'text-gray-300 hover:text-white': props.active !== tab.key,
           }"
         >
           {{ tab.label }}
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   type: {
@@ -35,26 +35,27 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  active: {
+    type: String,
+    default: 'popular',
+    validator: (value) => ['popular', 'top-rated', 'upcoming'].includes(value),
+  },
 })
 
 const emit = defineEmits(['tab-change'])
 
-const activeTab = ref('popular')
-
-const tabs = ref([
-  { key: 'popular', label: 'Popüler' },
-  { key: 'top-rated', label: 'En Yüksek Puanlı' },
-])
+const tabs = computed(() => {
+  const base = [
+    { key: 'popular', label: 'Popüler' },
+    { key: 'top-rated', label: 'En Yüksek Puanlı' },
+  ]
+  if (props.type === 'movies') {
+    base.push({ key: 'upcoming', label: 'Yakında' })
+  }
+  return base
+})
 
 const selectTab = (tabKey) => {
-  activeTab.value = tabKey
   emit('tab-change', tabKey)
 }
-
-watch(
-  () => props.type,
-  () => {
-    activeTab.value = 'popular'
-  },
-)
 </script>

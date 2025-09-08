@@ -27,11 +27,11 @@ const handleSearch = (payload) => {
   if (typeof payload === 'object' && payload !== null) {
     const q = (payload.query || '').toString()
     if (payload.mediaType === 'tv') {
-      router.push({ path: '/tv-shows', query: { search: q } })
+      router.push({ path: '/tv/popular', query: { search: q } })
       return
     }
     if (payload.mediaType === 'movie') {
-      router.push({ path: '/movies', query: { search: q } })
+      router.push({ path: '/movies/popular', query: { search: q } })
       return
     }
     router.push({ path: '/search', query: { search: q } })
@@ -43,9 +43,9 @@ const handleSearch = (payload) => {
 
 const handleTrendingClick = (payload) => {
   if (payload?.type === 'tv') {
-    router.push('/tv-shows')
+    router.push('/tv/popular')
   } else {
-    router.push('/movies')
+    router.push('/movies/popular')
   }
 }
 </script>

@@ -20,7 +20,11 @@
           />
         </div>
         <div v-else class="text-center py-12">
-          <img src="/icons/warning.png" class="w-16 h-16 mx-auto mb-4" alt="Henüz favori eklemediniz." />
+          <img
+            src="/icons/warning.png"
+            class="w-16 h-16 mx-auto mb-4"
+            alt="Henüz favori eklemediniz."
+          />
           <p class="text-white-400">Henüz favori eklemediniz.</p>
         </div>
       </div>

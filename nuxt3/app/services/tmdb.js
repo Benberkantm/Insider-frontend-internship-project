@@ -39,6 +39,10 @@ class TMDBService {
     return this.makeRequest('/movie/top_rated', { page })
   }
 
+  async getUpcomingMovies(page = 1) {
+    return this.makeRequest('/movie/upcoming', { page })
+  }
+
   async searchMovies(query, page = 1, options = {}) {
     return this.makeRequest('/search/movie', { query, page }, options)
   }
@@ -57,6 +61,10 @@ class TMDBService {
 
   async getTopRatedTVShows(page = 1) {
     return this.makeRequest('/tv/top_rated', { page })
+  }
+
+  async getUpcomingTVShows(page = 1) {
+    return this.makeRequest('/tv/on_the_air', { page })
   }
 
   async getTrending(type = 'all', timeWindow = 'day', page = 1) {

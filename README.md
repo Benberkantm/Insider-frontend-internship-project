@@ -19,29 +19,7 @@ A modern Vue.js movie and TV show discovery application built with TMDB API inte
 - **Vue Router** - Client-side routing
 - **TMDB API** - Movie and TV show data
 
-## Project Setup
 
-```sh
-npm install
-```
-
-### Development
-
-```sh
-npm run dev
-```
-
-### Production Build
-
-```sh
-npm run build
-```
-
-### Linting
-
-```sh
-npm run lint
-```
 
 ## API Configuration
 

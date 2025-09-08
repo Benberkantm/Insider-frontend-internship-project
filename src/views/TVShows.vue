@@ -1,29 +1,31 @@
 <template>
   <div>
     <SearchInput
-      title="Discover TV Shows"
-      subtitle="Find your next binge-worthy series"
-      placeholder="Search for TV shows..."
+      title="Dizileri Keşfet"
+      subtitle="Bir sonraki favori dizini bul"
+      placeholder="Dizi ara..."
       restrict-type="tv"
       @search="handleSearch"
     />
 
-    <PaginationTabs type="tv-shows" :loading="loading" @tab-change="handleTabChange" />
-    <div
-      v-if="!loading && tvShows.length > 0"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-stretch"
-    >
-      <MoviePoster
-        v-for="show in tvShows"
-        :key="show.id"
-        :id="show.id"
-        :title="show.name || show.title"
-        :poster-path="show.poster_path"
-        :release-date="show.first_air_date || show.release_date"
-        :rating="show.vote_average"
-        :vote-count="show.vote_count"
-        :type="show.media_type || 'tv'"
-      />
+    <div class="glass-panel p-3 sm:p-4 section-gap">
+      <PaginationTabs type="tv-shows" :loading="loading" @tab-change="handleTabChange" />
+      <div
+        v-if="!loading && tvShows.length > 0"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-stretch"
+      >
+        <MoviePoster
+          v-for="show in tvShows"
+          :key="show.id"
+          :id="show.id"
+          :title="show.name || show.title"
+          :poster-path="show.poster_path"
+          :release-date="show.first_air_date || show.release_date"
+          :rating="show.vote_average"
+          :vote-count="show.vote_count"
+          :type="show.media_type || 'tv'"
+        />
+      </div>
     </div>
 
     <div v-if="loading" class="flex justify-center items-center py-12">
@@ -44,9 +46,9 @@
     <div v-if="!loading && tvShows.length > 0 && hasMorePages" class="text-center mt-8">
       <button
         @click="loadMore"
-        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold tracking-wide transition-colors duration-200"
       >
-        Load More TV Shows
+        Daha Fazla Dizi Yükle
       </button>
     </div>
   </div>

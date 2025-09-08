@@ -1,7 +1,11 @@
 <template>
   <div
-    class="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300 cursor-pointer group"
+    class="card-surface group"
+    role="button"
+    tabindex="0"
+    :aria-label="title"
     @click="handleClick"
+    @keyup.enter="handleClick"
   >
     <div class="aspect-[2/3] relative overflow-hidden">
       <img
@@ -58,9 +62,9 @@
       </button>
     </div>
 
-    <div class="p-4 flex flex-col min-h-[8rem]">
+    <div class="p-5 md:p-6 flex flex-col min-h-[9rem] md:min-h-[9.5rem]">
       <h3
-        class="text-white font-semibold mb-1 line-clamp-2 group-hover:text-red-400 transition-colors duration-200 flex-shrink-0"
+        class="text-white font-semibold mb-1 line-clamp-2 group-hover:text-red-400 transition-colors duration-200 flex-shrink-0 min-h-[2.75rem]"
       >
         {{ title }}
       </h3>
@@ -68,7 +72,7 @@
       <p class="text-gray-400 text-sm mb-2 flex-shrink-0">
         {{ formatDate(releaseDate) }}
       </p>
-      <div class="mt-auto">
+      <div class="mt-auto pt-2 pb-3">
         <RatingDisplay :rating="rating" :vote-count="voteCount" />
       </div>
     </div>

@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center justify-start md:justify-between gap-2 flex-wrap min-w-0">
-    <div class="flex items-center min-w-0">
-      <div class="flex items-center">
+  <div class="w-full flex items-center justify-between gap-1 min-w-0 h-6 leading-none">
+    <div class="flex items-center flex-none">
+      <div class="flex items-center gap-0.5 flex-none">
         <svg
           v-for="star in 5"
           :key="star"
-          class="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0"
+          class="w-3 h-3 shrink-0"
           :class="star <= filledStars ? 'text-yellow-400' : 'text-gray-600'"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -15,11 +15,15 @@
           ></path>
         </svg>
       </div>
-      <span class="text-gray-300 text-xs sm:text-sm ml-2 font-medium whitespace-nowrap">
+      <span
+        class="text-gray-300 text-xs sm:text-sm ml-1 font-semibold whitespace-nowrap tabular-nums leading-none w-9 text-center flex-none"
+      >
         {{ formattedRating }}
       </span>
     </div>
-    <span class="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap md:ml-2 hidden sm:inline">
+    <span
+      class="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap sm:ml-2 hidden sm:inline ml-auto flex-none"
+    >
       ({{ formatVoteCount(voteCount) }})
     </span>
   </div>

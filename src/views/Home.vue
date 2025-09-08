@@ -2,8 +2,8 @@
   <div>
     <SearchInput
       title="Hoş Geldiniz!"
-      subtitle="Keşfedilecek milyonlarca film, TV şovu ve kişi. Şimdi keşfedin."
-      placeholder="Film, dizi veya kişi ara..."
+      subtitle="Keşfedilecek milyonlarca film ve TV şovu. Şimdi keşfedin."
+      placeholder="Film veya dizi ara..."
       @search="handleSearch"
     />
     <div class="max-w-7xl mx-auto mt-10">

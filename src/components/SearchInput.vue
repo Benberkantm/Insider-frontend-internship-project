@@ -2,7 +2,7 @@
   <div class="relative">
     <div
       class="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-lg"
-      :style="{ backgroundImage: `url(${backgroundImage})` }"
+      :style="{ backgroundImage: `url('/series-movies.png')` }"
     >
       <div class="absolute inset-0 bg-black bg-opacity-60 rounded-lg"></div>
     </div>
@@ -22,12 +22,16 @@
               @input="onInput"
               @keyup.enter="handleSearch"
               type="text"
+              id="search-input"
+              name="search"
+              aria-label="Search query"
               :placeholder="placeholder"
               class="flex-1 px-6 py-4 text-lg bg-white bg-opacity-90 text-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white placeholder-gray-500"
             />
             <button
               @click="handleSearch"
               class="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-r-lg transition-colors duration-200 flex items-center"
+              aria-label="Search"
             >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -54,45 +58,23 @@
                 role="option"
               >
                 <span class="shrink-0">
-                  <svg
+                  <img
                     v-if="item.media_type === 'movie'"
-                    class="w-4 h-4 text-red-600"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M4 4h3l2 3h5a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zm11-2a1 1 0 011 1v3h-2V3a1 1 0 011-1zm-4 0a1 1 0 011 1v3H9V3a1 1 0 011-1z"
-                    />
-                  </svg>
-                  <svg
+                    src="/icons/movie.png"
+                    class="w-4 h-4"
+                    alt="Film"
+                  />
+                  <img
                     v-else-if="item.media_type === 'tv'"
-                    class="w-4 h-4 text-blue-600"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M3 5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2H3zm4 8H4v-4h3v4zm9-4h-8v4h8v-4z"
-                    />
-                  </svg>
-                  <svg v-else class="w-4 h-4 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                      fill-rule="evenodd"
-                      d="M10 2a4 4 0 00-4 4 4 4 0 008 0 4 4 0 00-4-4zM2 16a6 6 0 1116 0v1H2v-1z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                    src="/icons/tv.png"
+                    class="w-4 h-4"
+                    alt="Dizi"
+                  />
                 </span>
                 <div class="min-w-0">
                   <div class="text-gray-900 truncate">{{ item.title || item.name }}</div>
                   <div class="text-xs text-gray-500">
-                    in
-                    {{
-                      item.media_type === 'movie'
-                        ? 'Movies'
-                        : item.media_type === 'tv'
-                          ? 'TV Shows'
-                          : 'People'
-                    }}
+                    {{ item.media_type === 'movie' ? 'Filmler' : 'Diziler' }}
                   </div>
                 </div>
               </li>

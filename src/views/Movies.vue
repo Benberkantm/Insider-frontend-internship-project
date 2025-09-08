@@ -1,29 +1,31 @@
 <template>
   <div>
     <SearchInput
-      title="Discover Movies"
-      subtitle="Find your next favorite movie"
-      placeholder="Search for movies..."
+      title="Filmleri Keşfet"
+      subtitle="Bir sonraki favori filmini bul"
+      placeholder="Film ara..."
       restrict-type="movie"
       @search="handleSearch"
     />
 
-    <PaginationTabs type="movies" :loading="loading" @tab-change="handleTabChange" />
-    <div
-      v-if="!loading && movies.length > 0"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-stretch"
-    >
-      <MoviePoster
-        v-for="movie in movies"
-        :key="movie.id"
-        :id="movie.id"
-        :title="movie.title || movie.name"
-        :poster-path="movie.poster_path"
-        :release-date="movie.release_date || movie.first_air_date"
-        :rating="movie.vote_average"
-        :vote-count="movie.vote_count"
-        :type="movie.media_type || 'movie'"
-      />
+    <div class="glass-panel p-3 sm:p-4 section-gap">
+      <PaginationTabs type="movies" :loading="loading" @tab-change="handleTabChange" />
+      <div
+        v-if="!loading && movies.length > 0"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-stretch"
+      >
+        <MoviePoster
+          v-for="movie in movies"
+          :key="movie.id"
+          :id="movie.id"
+          :title="movie.title || movie.name"
+          :poster-path="movie.poster_path"
+          :release-date="movie.release_date || movie.first_air_date"
+          :rating="movie.vote_average"
+          :vote-count="movie.vote_count"
+          :type="movie.media_type || 'movie'"
+        />
+      </div>
     </div>
 
     <div v-if="loading" class="flex justify-center items-center py-12">
@@ -44,9 +46,9 @@
     <div v-if="!loading && movies.length > 0 && hasMorePages" class="text-center mt-8">
       <button
         @click="loadMore"
-        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold tracking-wide transition-colors duration-200"
       >
-        Load More Movies
+        Daha Fazla Film Yükle
       </button>
     </div>
   </div>

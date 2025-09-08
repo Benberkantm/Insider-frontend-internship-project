@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-10">
+  <div class="section-gap glass-panel p-4 sm:p-5">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-2xl font-bold text-white">Ana Akım</h2>
-      <div class="flex bg-gray-800 rounded-lg p-1">
+      <div class="flex glass-chip">
         <button
           class="px-3 py-1 text-sm rounded-md"
           :class="timeWindow === 'day' ? 'bg-red-600 text-white' : 'text-gray-300 hover:text-white'"
@@ -28,10 +28,10 @@
 
     <div
       v-else
-      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 items-stretch"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 items-stretch"
     >
       <MoviePoster
-        v-for="item in items"
+        v-for="item in displayedItems"
         :key="item.id + '-' + (item.media_type || type)"
         :id="item.id"
         :title="item.title || item.name"
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import tmdbService from '../services/tmdb.js'
 import MoviePoster from './MoviePoster.vue'
 
@@ -67,6 +67,27 @@ const emit = defineEmits(['item-click'])
 const items = ref([])
 const loading = ref(false)
 const timeWindow = ref(props.initialWindow)
+
+const columns = ref(2)
+const updateColumns = () => {
+  const w = window.innerWidth || 0
+  columns.value = w >= 1536 ? 6 : w >= 1280 ? 5 : w >= 1024 ? 4 : w >= 768 ? 4 : w >= 640 ? 3 : 2
+}
+
+onMounted(() => {
+  updateColumns()
+  window.addEventListener('resize', updateColumns)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', updateColumns)
+})
+
+const displayedItems = computed(() => {
+  const list = items.value || []
+  const cols = Math.max(1, columns.value || 1)
+  const remainder = list.length % cols
+  return remainder === 0 ? list : list.slice(0, list.length - remainder)
+})
 
 const fetchTrending = async () => {
   loading.value = true

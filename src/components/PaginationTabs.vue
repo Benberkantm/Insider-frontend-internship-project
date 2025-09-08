@@ -1,15 +1,15 @@
 <template>
-  <div class="bg-gray-800 rounded-lg p-4 mb-6">
+  <div class="rounded-2xl p-4 mb-6">
     <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
-      <div class="flex space-x-1 bg-gray-700 rounded-lg p-1">
+      <div class="flex space-x-1 rounded-lg p-1 bg-black/40 backdrop-blur-md">
         <button
           v-for="tab in tabs"
           :key="tab.key"
           @click="selectTab(tab.key)"
-          class="px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200"
+          class="px-3 py-1 text-sm rounded-md transition-colors duration-200"
           :class="{
             'bg-red-600 text-white': activeTab === tab.key,
-            'text-gray-300 hover:text-white hover:bg-gray-600': activeTab !== tab.key,
+            'text-gray-300 hover:text-white': activeTab !== tab.key,
           }"
         >
           {{ tab.label }}
@@ -42,8 +42,8 @@ const emit = defineEmits(['tab-change'])
 const activeTab = ref('popular')
 
 const tabs = ref([
-  { key: 'popular', label: 'Popular' },
-  { key: 'top-rated', label: 'Top Rated' },
+  { key: 'popular', label: 'Popüler' },
+  { key: 'top-rated', label: 'En Yüksek Puanlı' },
 ])
 
 const selectTab = (tabKey) => {

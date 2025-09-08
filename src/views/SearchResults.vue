@@ -1,9 +1,9 @@
 <template>
   <div>
     <SearchInput
-      title="Search Results"
-      subtitle="Movies and TV Shows"
-      placeholder="Search movies or TV shows..."
+      title="Arama Sonuçları"
+      subtitle="Filmler ve Diziler"
+      placeholder="Film veya dizi ara..."
       @search="handleSearch"
     />
 
@@ -37,8 +37,8 @@
           clip-rule="evenodd"
         ></path>
       </svg>
-      <h3 class="text-xl font-semibold text-white mb-2">No results found</h3>
-      <p class="text-gray-400">Try a different search</p>
+      <h3 class="text-xl font-semibold text-white mb-2">Sonuç bulunamadı</h3>
+      <p class="text-gray-400">Farklı bir arama deneyin</p>
     </div>
   </div>
 </template>

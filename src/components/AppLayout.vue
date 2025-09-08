@@ -1,39 +1,53 @@
 <template>
-  <div class="min-h-screen bg-gray-900">
-    <nav class="bg-gray-800 shadow-lg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center">
-            <router-link to="/" class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold text-lg">F</span>
-              </div>
-              <span class="text-white text-xl font-bold">FexV1</span>
-            </router-link>
-          </div>
-          <div class="flex items-center space-x-8">
-            <router-link
-              to="/movies"
-              class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              :class="{ 'text-white bg-gray-700': $route.path === '/movies' }"
+  <div class="min-h-screen text-white relative">
+    <div
+      class="fixed inset-0 -z-10 bg-[url('https://hdqwalls.com/download/stranger-things-season-3-2019-4k-5k-38-1920x1080.jpg')] bg-cover bg-center"
+    ></div>
+
+    <nav class="sticky top-0 z-50 glass-panel">
+      <div class="section-wrap">
+        <div
+          class="flex flex-col sm:flex-row items-center sm:justify-between gap-2 sm:gap-0 sm:h-20 md:h-24 py-3 sm:py-0"
+        >
+          <router-link to="/" class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 md:w-12 md:h-12 bg-red-600 rounded-lg flex items-center justify-center"
             >
-              Filmler
-            </router-link>
-            <router-link
-              to="/tv-shows"
-              class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              :class="{ 'text-white bg-gray-700': $route.path === '/tv-shows' }"
-            >
-              Diziler
-            </router-link>
-            <router-link
-              to="/favorites"
-              class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              :class="{ 'text-white bg-gray-700': $route.path === '/favorites' }"
-            >
-              Favoriler
-            </router-link>
-          </div>
+              <span class="text-white font-bold text-lg">F</span>
+            </div>
+            <span class="text-white text-xl font-bold">FexV1</span>
+          </router-link>
+          <ul
+            class="rounded-[25px] inline-flex items-center justify-center w-full sm:w-auto glass-chip gap-1 flex-nowrap max-w-full"
+          >
+            <li class="shrink-0">
+              <router-link
+                to="/movies"
+                class="nav-link"
+                :class="{ 'nav-link--active': $route.path === '/movies' }"
+              >
+                Filmler
+              </router-link>
+            </li>
+            <li class="shrink-0">
+              <router-link
+                to="/tv-shows"
+                class="nav-link"
+                :class="{ 'nav-link--active': $route.path === '/tv-shows' }"
+              >
+                Diziler
+              </router-link>
+            </li>
+            <li class="shrink-0">
+              <router-link
+                to="/favorites"
+                class="nav-link"
+                :class="{ 'nav-link--active': $route.path === '/favorites' }"
+              >
+                Favoriler
+              </router-link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -41,10 +55,11 @@
     <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <router-view />
     </main>
-    <footer class="bg-gray-800 mt-auto">
+    <footer class="mt-auto bg-black/35 backdrop-blur-sm">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div class="text-center text-gray-400 text-sm">
-          <p>&copy; 2024 FexV1. All rights reserved.</p>
+        <div class="text-center text-white-200 text-sm">
+          <p>&copy; 2025 FexV1. All rights reserved.</p>
+          <p>Go visit www.sbms.blog for more info.</p>
         </div>
       </div>
     </footer>

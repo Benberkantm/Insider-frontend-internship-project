@@ -5,8 +5,8 @@
     </div>
 
     <div v-else-if="error" class="text-center py-16">
-      <h1 class="text-2xl font-semibold mb-2">TV show not found</h1>
-      <p class="text-gray-400">Please try again later.</p>
+      <h1 class="text-2xl font-semibold mb-2">Dizi bulunamadı.</h1>
+      <p class="text-gray-400">Lütfen daha sonra tekrar deneyin.</p>
     </div>
 
     <div v-else class="glass-panel p-3 sm:p-4">
@@ -29,11 +29,11 @@
             </button>
           </div>
 
-          <h2 class="text-xl font-semibold mb-2">Overview</h2>
+          <h2 class="text-xl font-semibold mb-2">Özet</h2>
           <p class="text-gray-300 mb-6">{{ item.overview || 'No overview available.' }}</p>
 
           <div v-if="cast.length" class="mb-6">
-            <h2 class="text-xl font-semibold mb-3">Actors</h2>
+            <h2 class="text-xl font-semibold mb-3">Oyuncular</h2>
             <div class="flex gap-3 overflow-x-auto pb-2">
               <div
                 v-for="person in cast"
@@ -55,19 +55,19 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <h3 class="font-semibold">Status</h3>
+              <h3 class="font-semibold">Durum</h3>
               <p class="text-gray-300">{{ item.status || 'Unknown' }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">First Air</h3>
+              <h3 class="font-semibold">İlk Yayın</h3>
               <p class="text-gray-300">{{ item.first_air_date || 'N/A' }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">Original Language</h3>
+              <h3 class="font-semibold">Orjinal Dil</h3>
               <p class="text-gray-300 uppercase">{{ item.original_language }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">Seasons • Episodes</h3>
+              <h3 class="font-semibold">Sezonlar • Bölümler</h3>
               <p class="text-gray-300">
                 {{ item.number_of_seasons }} • {{ item.number_of_episodes }}
               </p>

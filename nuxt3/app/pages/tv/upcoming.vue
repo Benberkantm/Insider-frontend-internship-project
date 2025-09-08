@@ -30,14 +30,14 @@
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
       <div v-if="!loading && items.length === 0" class="text-center py-12 text-gray-300">
-        No results
+        Sonuç bulunamadı
       </div>
       <div v-if="!loading && hasMorePages" class="text-center mt-8">
         <button
           @click="loadMore"
           class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold"
         >
-          Load More
+          Daha Fazla Göster
         </button>
       </div>
     </div>

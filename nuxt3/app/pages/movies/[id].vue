@@ -5,8 +5,8 @@
     </div>
 
     <div v-else-if="error" class="text-center py-16">
-      <h1 class="text-2xl font-semibold mb-2">Movie not found</h1>
-      <p class="text-gray-400">Please try again later.</p>
+      <h1 class="text-2xl font-semibold mb-2">Film bulunamadı.</h1>
+      <p class="text-gray-400">Lütfen daha sonra tekrar deneyin.</p>
     </div>
 
     <div v-else class="glass-panel p-3 sm:p-4">
@@ -29,11 +29,11 @@
             </button>
           </div>
 
-          <h2 class="text-xl font-semibold mb-2">Overview</h2>
+          <h2 class="text-xl font-semibold mb-2">Özet</h2>
           <p class="text-gray-300 mb-6">{{ movie.overview || 'No overview available.' }}</p>
 
           <div v-if="cast.length" class="mb-6">
-            <h2 class="text-xl font-semibold mb-3">Actors</h2>
+            <h2 class="text-xl font-semibold mb-3">Oyuncular</h2>
             <div class="flex gap-3 overflow-x-auto pb-2">
               <div
                 v-for="person in cast"
@@ -55,23 +55,23 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <h3 class="font-semibold">Status</h3>
+              <h3 class="font-semibold">Durum</h3>
               <p class="text-gray-300">{{ movie.status || 'Unknown' }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">Release Date</h3>
+              <h3 class="font-semibold">Yayın Tarihi</h3>
               <p class="text-gray-300">{{ movie.release_date || 'N/A' }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">Original Language</h3>
+              <h3 class="font-semibold">Orjinal Dil</h3>
               <p class="text-gray-300 uppercase">{{ movie.original_language }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">Budget</h3>
+              <h3 class="font-semibold">Bütçe</h3>
               <p class="text-gray-300">{{ formatCurrency(movie.budget) }}</p>
             </div>
             <div>
-              <h3 class="font-semibold">Revenue</h3>
+              <h3 class="font-semibold">Gelir</h3>
               <p class="text-gray-300">{{ formatCurrency(movie.revenue) }}</p>
             </div>
           </div>
